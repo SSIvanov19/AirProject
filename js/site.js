@@ -2,47 +2,43 @@ function initScenes(controller) {
 
     // build scene
     new ScrollMagic.Scene({
-            triggerElement: "#trigger1",
-            triggerHook: 1, // show, when scrolled 10% into view
-            duration: "100%", // hide 10% before exiting view (n% + 10% from bottom)
-            offset: 50 // move trigger to center of element
-        })
+        triggerElement: "#trigger1",
+        triggerHook: 1, // show, when scrolled 10% into view
+        duration: "100%", // hide 10% before exiting view (n% + 10% from bottom)
+        offset: 50 // move trigger to center of element
+    })
         .setClassToggle("#reveal1", "visible") // add class to reveal
         .addTo(controller);
 
     // build scene
     new ScrollMagic.Scene({
-            triggerElement: "#trigger2",
-            triggerHook: 1, // show, when scrolled 10% into view
-            duration: "120%", // hide 10% before exiting view (n% + 10% from bottom)
-            offset: 50 // move trigger to center of element
-        })
+        triggerElement: "#trigger2",
+        triggerHook: 1, // show, when scrolled 10% into view
+        duration: "120%", // hide 10% before exiting view (n% + 10% from bottom)
+        offset: 50 // move trigger to center of element
+    })
         .setClassToggle("#reveal2", "visible") // add class to reveal
         .addTo(controller);
 
     // build scene
     new ScrollMagic.Scene({
-            triggerElement: "#trigger3",
-            triggerHook: 1, // show, when scrolled 10% into view
-            duration: "220%", // hide 10% before exiting view (n% + 10% from bottom)
-            offset: 50 // move trigger to center of element
-        })
+        triggerElement: "#trigger3",
+        triggerHook: 1, // show, when scrolled 10% into view
+        duration: "220%", // hide 10% before exiting view (n% + 10% from bottom)
+        offset: 50 // move trigger to center of element
+    })
         .setClassToggle("#reveal3", "visible") // add class to reveal
         .addTo(controller);
 }
 
 
 //  define a JQuery function that will be executed when the whole body is loaded
-$(function() {
+$(function () {
+    translate(localStorage.getItem("lang") || 'en');
 
-    translate("bg");
-
-    $(".translate-button").on("click", function() {
+    $(".translate-button").on("click", function () {
         translate($(this).data("lng"));
     });
-
-
-
 
     // selection all the elements that have id="accordion"
     $("#accordion").accordion({
@@ -58,7 +54,7 @@ $(function() {
     });
 
     // select all 'a' atributes that contain in their href '#'
-    $('a[href*="#"]').on('click', function(e) {
+    $('a[href*="#"]').on('click', function (e) {
 
         // Prevent event bubling (i.e. the browser will not add #element_id in address bar)
         e.preventDefault();
@@ -89,8 +85,7 @@ $(function() {
     }
 
     // using JSON method to take the data
-    $.getJSON("https://data.sensor.community/airrohr/v1/sensor/38303/", function(data) {
-
+    $.getJSON("https://data.sensor.community/airrohr/v1/sensor/38303/", function (data) {
         // check if the data is valid
         if (data.length == 0) {
             return;
@@ -104,7 +99,7 @@ $(function() {
         LastUpdate = dateToISOLocalDate(new Date(data[0].timestamp + "Z"));
 
         // Calculating the sum of all values
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             // console.log("i == " + i + ": " + parseFloat(data[i].sensordatavalues[0].value));
             temperature += parseFloat(data[i].sensordatavalues[0].value);
             pressure += parseFloat(data[i].sensordatavalues[1].value);
@@ -124,8 +119,7 @@ $(function() {
 
     });
 
-    $.getJSON("https://data.sensor.community/airrohr/v1/sensor/38302/", function(data) {
-
+    $.getJSON("https://data.sensor.community/airrohr/v1/sensor/38302/", function (data) {
         // After receiving a response we perform data validateion check
         if (data.length == 0) {
             return;
@@ -135,7 +129,7 @@ $(function() {
         let PM25 = 0;
 
         // Calculating the sum of all values
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             PM10 += parseFloat(data[i].sensordatavalues[0].value);
             PM25 += parseFloat(data[i].sensordatavalues[1].value);
         }
@@ -153,7 +147,7 @@ $(function() {
 });
 
 function showdaily() {
-    var x = document.getElementById("GraphsDaily");
+    let x = document.getElementById("GraphsDaily");
     // if display attribute has value = None, then we change it and make it a block element
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -167,7 +161,7 @@ function showdaily() {
 }
 
 function showweekly() {
-    var x = document.getElementById("GraphsWeekly");
+    let x = document.getElementById("GraphsWeekly");
 
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -181,7 +175,7 @@ function showweekly() {
 }
 
 function showmonthly() {
-    var x = document.getElementById("GraphsMonthly");
+    let x = document.getElementById("GraphsMonthly");
     if (x.style.display === "none") {
         x.style.display = "block";
         $("#buttongraphmonth").text(getTranslatedText("monthlyGraphButton-hide"));

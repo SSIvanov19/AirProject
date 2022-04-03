@@ -1,4 +1,4 @@
-var textTranslation = {
+let textTranslation = {
     "btn1": {
         "bg": `Повече информация`,
         "en": `More Information`
@@ -415,8 +415,6 @@ var textTranslation = {
     }
 };
 
-var currentLanguage = 'bg';
-
 function replaceElementText(item, text) {
     if (!item.is("button")) {
         item.html(text);
@@ -428,6 +426,7 @@ function replaceElementText(item, text) {
 function translate(langId) {
     currentLanguage = langId;
     // Gets all tags that have 'data-lang' attribute present
+    localStorage.setItem("lang", langId);
     $("[data-lang]")
         .each(function() {
             let item = $(this);
